@@ -1,6 +1,9 @@
 package me.marius.main;
 
 import me.marius.listeners.CommandListener;
+import me.marius.listeners.GuildMemberJoinListener;
+import me.marius.listeners.GuildMemberLeaveListener;
+import me.marius.reactionroles.RoleSelectionListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -21,8 +24,19 @@ public class Main {
      * TextChannel ID´s für den Discord
      *
      */
-    public final long TEST_CHANNEL = 811935946064265229L;
+    public final long TEST_CHANNEL = 811935946064265229L; //VON TESTDISCORD!
     public final long MEME_CHANNEL = 673615226955890710L;
+    public final long NEWS_CHANNEL = 735904029606936598L;
+    public final long ROLE_SELECTION = 816270150859882496L;
+    public final long UMFRAGE_CHANNEL = 811948730142949436L;
+
+    /*
+     *
+     * Rollen ID´s für den Discord
+     *
+     */
+    public final long NEWS_NOTFIY = 816243134090444812L;
+    public final long UMFRAGE_NOTIFY = 816385581738885182L;
 
     private JDABuilder jdaBuilder;
     private CommandManager commandManager;
@@ -42,6 +56,7 @@ public class Main {
                 .setStatus(OnlineStatus.ONLINE);
 
         intializeListeners();
+        configureMemoryUsage(jdaBuilder);
 
         JDA bot = null;
         try {
@@ -59,7 +74,10 @@ public class Main {
 
     private void intializeListeners(){
         jdaBuilder
-                .addEventListeners(new CommandListener(this));
+                .addEventListeners(new CommandListener(this))
+                .addEventListeners(new GuildMemberJoinListener())
+                .addEventListeners(new GuildMemberLeaveListener())
+                .addEventListeners(new RoleSelectionListener(this));
     }
 
     private void configureMemoryUsage(JDABuilder jdaBuilder){
