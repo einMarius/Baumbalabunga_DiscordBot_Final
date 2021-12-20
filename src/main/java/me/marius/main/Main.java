@@ -35,7 +35,9 @@ public class Main {
     public final long NEWS_CHANNEL = 735904029606936598L;
     public final long ROLE_SELECTION = 816270150859882496L;
     public final long UMFRAGE_CHANNEL = 811948730142949436L;
-    public final long TEMP_CHANNEL = 921756035058892831L; //VON TESTDISCORD!
+    public final long TEMP_CHANNEL = 921756035058892831L;
+    public final long MOIN_TSCHOE_CHANNEL = 812007747087368202L;
+    public final long ZITATE_CHANNEL = 799597621224275988L;
 
     /*
      *
@@ -68,6 +70,7 @@ public class Main {
         jdaBuilder = JDABuilder
                 .createDefault(TOKEN)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .enableIntents(GatewayIntent.GUILD_VOICE_STATES)
                 .setActivity(Activity.playing("mit Johannsees"))
                 .setStatus(OnlineStatus.ONLINE);
 
@@ -78,7 +81,7 @@ public class Main {
         try {
             bot = jdaBuilder.build();
             bot.awaitReady();
-            System.out.println("[BaumbalaBunga] Der Bot sowie alle weiteren System wurden gestartet!");
+            System.out.println("[BaumbalaBunga] Der Bot sowie alle weiteren Systeme wurden gestartet!");
         } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
             System.out.println("[BaumbalaBunga] Es gab einen Fehler beim Starten des Discord-Bots!");
@@ -93,7 +96,7 @@ public class Main {
         jdaBuilder
                 .addEventListeners(new CommandListener(this))
                 .addEventListeners(new GuildMemberJoinListener())
-                .addEventListeners(new GuildMemberLeaveListener())
+                .addEventListeners(new GuildMemberLeaveListener(this))
                 .addEventListeners(new RoleSelectionListener(this))
                 .addEventListeners(new MoveIntoMainChannel(this))
                 .addEventListeners(new JoinMainChannel(this))
@@ -104,6 +107,7 @@ public class Main {
 
         jdaBuilder
                 .disableCache(CacheFlag.ACTIVITY)
+                .enableCache(CacheFlag.VOICE_STATE)
                 .setMemberCachePolicy(MemberCachePolicy.VOICE.or(MemberCachePolicy.OWNER))
                 .setChunkingFilter(ChunkingFilter.NONE)
                 .disableIntents(GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGE_TYPING);

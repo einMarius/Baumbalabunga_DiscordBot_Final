@@ -1,10 +1,8 @@
 package me.marius.main;
 
 import me.marius.commands.type.ServerCommand;
-import me.marius.commands.use.ClearCommand;
-import me.marius.commands.use.MemeCommand;
-import me.marius.commands.use.NewsCommand;
-import me.marius.commands.use.UmfrageCommand;
+import me.marius.commands.use.*;
+import me.marius.music.commands.*;
 import me.marius.reactionroles.RoleSelectionCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
@@ -32,6 +30,15 @@ public class CommandManager {
         this.commands.put("umfrage", new UmfrageCommand(plugin));
         this.commands.put("roleselection", new RoleSelectionCommand(plugin));
         this.commands.put("clear", new ClearCommand());
+        this.commands.put("zitat", new ZitatCommand(plugin));
+
+        //Music
+        this.commands.put("join", new JoinCommand(plugin, bot));
+        this.commands.put("play", new PlayCommand());
+        this.commands.put("queue", new QueueCommand());
+        this.commands.put("stop", new StopCommand());
+        this.commands.put("skip", new SkipCommand());
+        this.commands.put("nowplaying", new NowPlayingCommand());
 
         CommandListUpdateAction commands = bot.updateCommands();
         commands.addCommands(new CommandData("plsmeme", "Sendet ein random Meme von Reddit."));

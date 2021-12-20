@@ -1,8 +1,7 @@
 package me.marius.listeners;
 
+import me.marius.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -10,6 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class GuildMemberLeaveListener extends ListenerAdapter {
+
+    private Main plugin;
+
+    public GuildMemberLeaveListener(Main plugin) {
+        this.plugin = plugin;
+    }
 
     private String emoji = "❔";
     private String emoji1 = "❓";
@@ -30,9 +35,6 @@ public class GuildMemberLeaveListener extends ListenerAdapter {
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
 
-        Guild guild = event.getGuild();
-        Member member = event.getMember();
-
         Random random = new Random();
         int number = random.nextInt(messages.length);
 
@@ -40,7 +42,7 @@ public class GuildMemberLeaveListener extends ListenerAdapter {
                 .setDescription(emoji + " " + messages[number].replace("%member%", event.getUser().getAsMention()) + " " + emoji1)
                 .setColor(0xe3672d);
 
-        event.getGuild().getTextChannelById(812010315482136586L).sendMessageEmbeds(builder.build()).queue();
+        event.getGuild().getTextChannelById(plugin.MOIN_TSCHOE_CHANNEL).sendMessageEmbeds(builder.build()).queue();
         builder.clear();
 
     }

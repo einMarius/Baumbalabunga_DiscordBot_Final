@@ -32,7 +32,7 @@ public class MemeCommand extends ListenerAdapter implements ServerCommand {
 
         //if (member.hasPermission(Permission.MANAGE_PERMISSIONS)) {
             if (textChannel.getIdLong() == plugin.MEME_CHANNEL || textChannel.getIdLong() == plugin.TEST_CHANNEL) {
-                if (args.length >= 1) {
+                if (args.length == 1) {
                     message.delete().queue();
                     textChannel.sendTyping().queue();
 

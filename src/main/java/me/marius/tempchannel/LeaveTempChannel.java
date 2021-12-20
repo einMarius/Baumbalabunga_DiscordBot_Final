@@ -36,7 +36,7 @@ public class LeaveTempChannel extends ListenerAdapter {
                         .setTitle("**⏳ | Temporäre Channel**")
                         .setDescription("**Dein privater Channel wurde gelöscht " + getKeysByValue(plugin.tempchannels, voiceChannel.getIdLong()) +
                                 " \nJoine erneut in den Join-Channel, um erneut einen privaten Channel erstellen zu lassen!**")
-                        .setThumbnail(event.getMember().getAvatarUrl())
+                        .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.RED)
                         .setFooter("Bot created by Marius")
                         .setTimestamp(LocalDateTime.now(Clock.systemUTC()));
@@ -67,7 +67,7 @@ public class LeaveTempChannel extends ListenerAdapter {
                         .setTitle("**⏳ | Temporäre Channel**")
                         .setDescription("**Dein privater Channel wurde gelöscht " + getKeysByValue(plugin.tempchannels, voiceChannel.getIdLong()) +
                                 " \nJoine erneut in den Join-Channel, um erneut einen privaten Channel erstellen zu lassen!**")
-                        .setThumbnail(event.getMember().getAvatarUrl())
+                        .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.RED)
                         .setFooter("Bot created by Marius")
                         .setTimestamp(LocalDateTime.now(Clock.systemUTC()));

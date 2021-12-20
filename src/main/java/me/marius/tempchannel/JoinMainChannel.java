@@ -48,7 +48,7 @@ public class JoinMainChannel extends ListenerAdapter {
                         .setTitle("**⏳ | Temporäre Channel**")
                         .setDescription("**Dein privater Channel wurde erstellt " + event.getMember().getAsMention() +
                                 " \nDu wurdest in diesen hineingemoved!**")
-                        .setThumbnail(event.getMember().getAvatarUrl())
+                        .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.GREEN)
                         .setFooter("Bot created by Marius")
                         .setTimestamp(LocalDateTime.now(Clock.systemUTC()));
@@ -65,7 +65,7 @@ public class JoinMainChannel extends ListenerAdapter {
                         .setTitle("**⏳ | Temporäre Channel**")
                         .setDescription("**Du hast bereits einen privaten Channel! " + event.getMember().getAsMention() +
                                 " \nDu wurdest in diesen zurückgemoved!**")
-                        .setThumbnail(event.getMember().getAvatarUrl())
+                        .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.ORANGE)
                         .setFooter("Bot created by Marius")
                         .setTimestamp(LocalDateTime.now(Clock.systemUTC()));
