@@ -33,12 +33,12 @@ public class CommandManager {
         this.commands.put("zitat", new ZitatCommand(plugin));
 
         //Music
-        this.commands.put("join", new JoinCommand(plugin, bot));
+        /*this.commands.put("join", new JoinCommand(plugin, bot));
         this.commands.put("play", new PlayCommand());
         this.commands.put("queue", new QueueCommand());
         this.commands.put("stop", new StopCommand());
         this.commands.put("skip", new SkipCommand());
-        this.commands.put("nowplaying", new NowPlayingCommand());
+        this.commands.put("nowplaying", new NowPlayingCommand());*/
 
         CommandListUpdateAction commands = bot.updateCommands();
         commands.addCommands(new CommandData("plsmeme", "Sendet ein random Meme von Reddit."));

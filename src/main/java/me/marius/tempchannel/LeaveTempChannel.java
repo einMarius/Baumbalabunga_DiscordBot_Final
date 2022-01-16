@@ -12,9 +12,6 @@ import java.awt.*;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LeaveTempChannel extends ListenerAdapter {
 
@@ -34,7 +31,7 @@ public class LeaveTempChannel extends ListenerAdapter {
 
                 EmbedBuilder embedBuilder = new EmbedBuilder()
                         .setTitle("**⏳ | Temporäre Channel**")
-                        .setDescription("**Dein privater Channel wurde gelöscht " + getKeysByValue(plugin.tempchannels, voiceChannel.getIdLong()) +
+                        .setDescription("**Der private Channel wurde gelöscht!" +
                                 " \nJoine erneut in den Join-Channel, um erneut einen privaten Channel erstellen zu lassen!**")
                         .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.RED)
@@ -65,7 +62,7 @@ public class LeaveTempChannel extends ListenerAdapter {
 
                 EmbedBuilder embedBuilder = new EmbedBuilder()
                         .setTitle("**⏳ | Temporäre Channel**")
-                        .setDescription("**Dein privater Channel wurde gelöscht " + getKeysByValue(plugin.tempchannels, voiceChannel.getIdLong()) +
+                        .setDescription("**Der private Channel wurde gelöscht!" +
                                 " \nJoine erneut in den Join-Channel, um erneut einen privaten Channel erstellen zu lassen!**")
                         .setThumbnail(event.getMember().getUser().getAvatarUrl())
                         .setColor(Color.RED)
@@ -82,13 +79,4 @@ public class LeaveTempChannel extends ListenerAdapter {
         }
 
     }
-
-    private <T, E> Set<T> getKeysByValue(Map<T, E> map, E value) {
-        return map.entrySet()
-                .stream()
-                .filter(entry -> Objects.equals(entry.getValue(), value))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
-    }
-
 }

@@ -3,6 +3,8 @@ package me.marius.main;
 import me.marius.listeners.CommandListener;
 import me.marius.listeners.GuildMemberJoinListener;
 import me.marius.listeners.GuildMemberLeaveListener;
+import me.marius.listeners.MessageReceivedListener;
+import me.marius.mysql.MySQL;
 import me.marius.reactionroles.RoleSelectionListener;
 import me.marius.tempchannel.JoinMainChannel;
 import me.marius.tempchannel.LeaveTempChannel;
@@ -23,7 +25,7 @@ import java.util.Map;
 
 public class Main {
 
-    private final String TOKEN = "TOKEN";
+    private final String TOKEN = "TOKEN"; //MYSQL PASSWORT ÄNDERN!
 
     /*
      *
@@ -44,6 +46,13 @@ public class Main {
      * Rollen ID´s für den Discord
      *
      */
+    final public long UNRANKED = 824983261197500440L;
+    final public long RANK_1 = 824983198039015444L;
+    final public long RANK_2 = 824983050458759198L;
+    final public long RANK_3 = 824983002970325002L;
+    final public long RANK_4 = 824982992170516500L;
+    final public long RANK_5 = 824982938717782046L;
+
     public final long NEWS_NOTFIY = 816243134090444812L;
     public final long UMFRAGE_NOTIFY = 816385581738885182L;
 
@@ -58,6 +67,9 @@ public class Main {
 
     private JDABuilder jdaBuilder;
     private CommandManager commandManager;
+    private MySQL mySQL;
+    private CooldownManager cooldownManager;
+    private LevelRoles levelRoles;
 
     public static void main(String[] args){
 
@@ -89,18 +101,25 @@ public class Main {
 
         tempchannels = new HashedMap<>();
         commandManager = new CommandManager(this, bot);
+        mySQL = new MySQL();
+        cooldownManager = new CooldownManager();
+        levelRoles = new LevelRoles(this);
+
+        MySQL.connect();
+        MySQL.createTables();
 
     }
 
     private void intializeListeners(){
         jdaBuilder
                 .addEventListeners(new CommandListener(this))
-                .addEventListeners(new GuildMemberJoinListener())
+                .addEventListeners(new GuildMemberJoinListener(this))
                 .addEventListeners(new GuildMemberLeaveListener(this))
                 .addEventListeners(new RoleSelectionListener(this))
                 .addEventListeners(new MoveIntoMainChannel(this))
                 .addEventListeners(new JoinMainChannel(this))
-                .addEventListeners(new LeaveTempChannel(this));
+                .addEventListeners(new LeaveTempChannel(this))
+                .addEventListeners(new MessageReceivedListener(this));
     }
 
     private void configureMemoryUsage(JDABuilder jdaBuilder){
@@ -115,4 +134,6 @@ public class Main {
     }
 
     public CommandManager getCommandManager() { return commandManager; }
+    public CooldownManager getCooldownManager() { return cooldownManager; }
+    public LevelRoles getLevelRoles() { return levelRoles; }
 }

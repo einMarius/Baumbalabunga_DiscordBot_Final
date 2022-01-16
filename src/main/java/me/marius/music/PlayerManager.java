@@ -56,16 +56,15 @@ public class PlayerManager {
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
-                final List<AudioTrack> tracks = playlist.getTracks();
 
                 channel.sendMessage("Adding to queue: `")
-                        .append(String.valueOf(tracks.size()))
+                        .append(String.valueOf(playlist.getTracks().size()))
                         .append("` tracks from playlist `")
                         .append(playlist.getName())
                         .append('`')
                         .queue();
 
-                for (final AudioTrack track : tracks) {
+                for (final AudioTrack track : playlist.getTracks()) {
                     musicManager.scheduler.queue(track);
                 }
             }

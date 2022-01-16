@@ -1,5 +1,7 @@
 package me.marius.listeners;
 
+import me.marius.main.Main;
+import me.marius.mysql.MySQL;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -7,6 +9,9 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.util.Random;
 
 public class GuildMemberJoinListener extends ListenerAdapter {
+
+    private Main plugin;
+    public GuildMemberJoinListener(Main plugin) { this.plugin = plugin; }
 
     private String emoji = "🎉";
     String[] messages = {
@@ -35,9 +40,8 @@ public class GuildMemberJoinListener extends ListenerAdapter {
         e.getGuild().getDefaultChannel().sendMessageEmbeds(builder.build()).queue();
         builder.clear();
 
-        //if(!MySQL.userIsExisting(e.getMember().getId())) {
-        //    e.getMember().getGuild().addRoleToMember(e.getMember(), e.getJDA().getRoleById(plugin.UNRANKED)).queue();
-        //}
+        if(!MySQL.userIsExisting(e.getMember().getId()))
+            e.getMember().getGuild().addRoleToMember(e.getMember(), e.getJDA().getRoleById(plugin.UNRANKED)).queue();
     }
 
 }

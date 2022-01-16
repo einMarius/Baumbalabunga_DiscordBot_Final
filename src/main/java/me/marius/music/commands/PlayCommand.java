@@ -46,6 +46,7 @@ public class PlayCommand implements ServerCommand {
 
 
             String link = String.join(" ", message.getContentDisplay().split(" "));
+
             if (!isUrl(link)) {
                 link = "ytsearch:" + link;
             }
