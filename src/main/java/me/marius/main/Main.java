@@ -3,8 +3,10 @@ package me.marius.main;
 import me.marius.listeners.CommandListener;
 import me.marius.listeners.GuildMemberJoinListener;
 import me.marius.listeners.GuildMemberLeaveListener;
-import me.marius.listeners.MessageReceivedListener;
+import me.marius.mysql.JoinMoveQuitChannelListener;
+import me.marius.mysql.MessageReceivedListener;
 import me.marius.mysql.MySQL;
+import me.marius.mysql.ReactionListener;
 import me.marius.reactionroles.RoleSelectionListener;
 import me.marius.tempchannel.JoinMainChannel;
 import me.marius.tempchannel.LeaveTempChannel;
@@ -25,7 +27,14 @@ import java.util.Map;
 
 public class Main {
 
-    private final String TOKEN = "TOKEN"; //MYSQL PASSWORT ÄNDERN!
+    private final String TOKEN = ""; //MYSQL PASSWORT ÄNDERN!
+
+    /*
+     *
+     * Guild ID für den Discord
+     *
+     */
+    public final long GUILD_ID = 525729848413519886L;
 
     /*
      *
@@ -40,6 +49,7 @@ public class Main {
     public final long TEMP_CHANNEL = 921756035058892831L;
     public final long MOIN_TSCHOE_CHANNEL = 812007747087368202L;
     public final long ZITATE_CHANNEL = 799597621224275988L;
+    public final long STATS_CHANNEL = 825103970270707743L;
 
     /*
      *
@@ -106,7 +116,6 @@ public class Main {
         levelRoles = new LevelRoles(this);
 
         MySQL.connect();
-        MySQL.createTables();
 
     }
 
@@ -119,7 +128,9 @@ public class Main {
                 .addEventListeners(new MoveIntoMainChannel(this))
                 .addEventListeners(new JoinMainChannel(this))
                 .addEventListeners(new LeaveTempChannel(this))
-                .addEventListeners(new MessageReceivedListener(this));
+                .addEventListeners(new MessageReceivedListener(this))
+                .addEventListeners(new JoinMoveQuitChannelListener(this))
+                .addEventListeners(new ReactionListener(this));
     }
 
     private void configureMemoryUsage(JDABuilder jdaBuilder){

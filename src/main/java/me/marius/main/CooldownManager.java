@@ -4,13 +4,16 @@ import net.dv8tion.jda.api.entities.Member;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CooldownManager {
 
     private Map<Member, Integer> playerCoolDownMap = new HashMap<>();
 
     public CooldownManager() {
-        new Runnable() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 for (Member member : playerCoolDownMap.keySet()){
@@ -22,7 +25,7 @@ public class CooldownManager {
                     playerCoolDownMap.put(member, playerCoolDownMap.get(member)-1);
                 }
             }
-        };
+        }, 0, 1000);
     }
 
     public void addPlayerToMap(Member member, Integer time) {
@@ -30,6 +33,6 @@ public class CooldownManager {
     }
 
     public boolean isMemberInCooldown(Member member) {
-        return  playerCoolDownMap.containsKey(member.getId());
+        return  playerCoolDownMap.containsKey(member);
     }
 }

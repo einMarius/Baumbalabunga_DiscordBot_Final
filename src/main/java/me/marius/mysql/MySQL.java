@@ -1,7 +1,10 @@
 package me.marius.mysql;
 
+import com.mysql.cj.xdevapi.Table;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

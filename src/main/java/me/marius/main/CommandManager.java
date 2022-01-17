@@ -2,14 +2,11 @@ package me.marius.main;
 
 import me.marius.commands.type.ServerCommand;
 import me.marius.commands.use.*;
-import me.marius.music.commands.*;
 import me.marius.reactionroles.RoleSelectionCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,6 +28,8 @@ public class CommandManager {
         this.commands.put("roleselection", new RoleSelectionCommand(plugin));
         this.commands.put("clear", new ClearCommand());
         this.commands.put("zitat", new ZitatCommand(plugin));
+        this.commands.put("stats", new StatsCommand(plugin));
+        this.commands.put("top", new TopCommand(plugin));
 
         //Music
         /*this.commands.put("join", new JoinCommand(plugin, bot));
@@ -40,9 +39,9 @@ public class CommandManager {
         this.commands.put("skip", new SkipCommand());
         this.commands.put("nowplaying", new NowPlayingCommand());*/
 
-        CommandListUpdateAction commands = bot.updateCommands();
-        commands.addCommands(new CommandData("plsmeme", "Sendet ein random Meme von Reddit."));
-        commands.queue();
+        /*bot.upsertCommand("stats", "Zeigt dir die Stats von dir")
+                .addSubcommands(new SubcommandData("User", "User des Discord Servers"))
+                .addOption(OptionType.USER, "User", "Zeigt die Stats eines Users").queue();*/
 
     }
 
